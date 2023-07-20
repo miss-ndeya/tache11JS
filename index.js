@@ -1,53 +1,42 @@
-//  selectionner les elements du HTML
-const input = document.querySelector('#input');
-let btnAjouter = document.querySelector('#btnAjouter');
-const liste = document.querySelector('ul');
-console.log(input);
+// selectionner les elements html
+let input = document.getElementById('input');
+let btnAjouter = document.getElementById('btnAjouter');
+let liste = document.getElementById('liste');
 
-// fonction click sur le bouton ajouter
+// fonction clic sur le bouton
 btnAjouter.addEventListener('click', listeTache);
 
-
+// fonction liste de tache
 function listeTache() {
-    // creation element HTML
-    let valeurInput = input.value
-    let li = document.createElement('li');
-    let todo = document.createElement('button');
-    let todoing = document.createElement('button');
-    let todone = document.createElement('button');
+    let valeur = input.value;
+    if (valeur === '') {
+        alert('Veuillez saisir une tache a faire');
+    } else {
+        liste.innerHTML += `<div class="d-flex my-3 p-2 align-items-center justify-content-around ">
+        ${valeur}
+        <button class="btn btn-danger" onclick="Todo(event)">todo</button>
+        <button class="btn btn-warning" onclick="Doing(event)">doing</button>
+        <button class="btn btn-success" onclick="Done(event)">done</button>
+        </div>`
+        input.value = '';
+    }
+}
 
-    // Affichage elements
-    li.innerHTML = `${valeurInput}`;
-    todo.innerHTML= "to do";
-    todoing.innerHTML= "to doing";
-    todone.innerHTML= "to done";
-    li.appendChild(todo);
-    li.appendChild(todoing);
-    li.appendChild(todone);
-    liste.appendChild(li); 
+// fonction pour change le bg de la tache en rouge au click du bouton todo
 
-    // reinitialiser le champ de saisi
-    input.value = "";
+function Todo(event) {
+    event.target.parentNode.style.backgroundColor = '#dc3545'
+    event.target.parentNode.style.color = '#fff'
+}
 
-    // styliser la tache
-    li.classList = "mb-4 nav-link py-2 text-end"
-    todo.classList = "btn btn-danger mx-3"
-    todoing.classList = "btn btn-warning mx-3"
-    todone.classList = "btn btn-success mx-3"
+// fonction pour change le bg de la tache en orange au click du bouton doing
+function Doing(event) {
+    event.target.parentNode.style.backgroundColor = '#ffc107'
+    event.target.parentNode.style.color = '#000'
+}
 
-    // fonction pour changer le bg de todo
-    todo.addEventListener("click", () =>  {
-        li.style.backgroundColor = "#dc3545";
-    })
-    // fonction pour changer le bg de todoing
-    todoing.addEventListener("click", () =>  {
-        li.style.backgroundColor = "#ffc107";
-    })
-    // fonction pour changer le bg de todone
-    todone.addEventListener("click", () =>  {
-        li.style.backgroundColor = "#198754";
-    })
-
-  
-
+// fonction pour change le bg de la tache en vert au click du bouton done
+function Done(event) {
+    event.target.parentNode.style.backgroundColor = '#198754'
+    event.target.parentNode.style.color = '#fff'
 }
